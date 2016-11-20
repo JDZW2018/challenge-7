@@ -26,14 +26,26 @@ is_legal(5, List((1,3), (2,3), (1, 1)))((1, 1)) //False: In path
 // all legal onward moves that are not already in the path. 
 // The moves should be ordered in a "clockwise" order.
  
-def legal_moves(dim: Int, path: Path, x: Pos): List[Pos] = ...
+def legal_moves(dim: Int, path: Path, x: Pos): List[Pos] = {
+  val one = (x._1 + 1, x._2 + 2)
+  val two = (x._1 + 2, x._2 + 1)
+  val three = (x._1 + 2, x._2 - 1)
+  val four = (x._1 + 1, x._2 - 2)
+  val five = (x._1 - 1, x._2 - 2)
+  val six = (x._1 - 2, x._2 - 1)
+  val seven = (x._1 - 2, x._2 + 1)
+  val eight = (x._1 - 1, x._2 + 2)
 
-//assert(legal_moves(8, Nil, (2,2)) == 
-//  List((3,4), (4,3), (4,1), (3,0), (1,0), (0,1), (0,3), (1,4)))
-//assert(legal_moves(8, Nil, (7,7)) == List((6,5), (5,6)))
-//assert(legal_moves(8, List((4,1), (1,0)), (2,2)) == 
-//  List((3,4), (4,3), (3,0), (0,1), (0,3), (1,4)))
-//assert(legal_moves(8, List((6,6)), (7,7)) == List((6,5), (5,6)))
+  List(one, two, three, four, five, six, seven, eight)
+    .filter(move => is_legal(dim, path)(move))
+}
+
+assert(legal_moves(8, Nil, (2,2)) ==
+  List((3,4), (4,3), (4,1), (3,0), (1,0), (0,1), (0,3), (1,4)))
+assert(legal_moves(8, Nil, (7,7)) == List((6,5), (5,6)))
+assert(legal_moves(8, List((4,1), (1,0)), (2,2)) ==
+  List((3,4), (4,3), (3,0), (0,1), (0,3), (1,4)))
+assert(legal_moves(8, List((6,6)), (7,7)) == List((6,5), (5,6)))
 
 
 //(1c) Complete the two recursive functions below. 
