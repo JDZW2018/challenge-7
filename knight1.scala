@@ -7,8 +7,20 @@ type Path = List[Pos]    // a path...a list of positions
 //(1a) Complete the function that tests whether the position 
 // is inside the board and not yet element in the path.
 
-def is_legal(dim: Int, path: Path)(x: Pos): Boolean = ...
+def is_legal(dim: Int, path: Path)(x: Pos): Boolean = {
+  val isInside = (x._1 >= 0) && (x._1 < dim) && (x._2 >= 0) && (x._2 < dim)
+  val isInPath = path.find(y => y == x).isDefined
+  isInside && !isInPath
+}
 
+//DELETE ME BEFORE SUBMISSION
+is_legal(5, List((1,3), (2,3), (1, 1)))((4, 4)) //True
+is_legal(5, List((1,3), (2,3), (1, 1)))((2, 1)) //True
+is_legal(5, List((1,3), (2,3), (1, 1)))((0, 0)) //True
+is_legal(5, List((1,3), (2,3), (1, 1)))((5, 4)) //False: Not inside
+is_legal(5, List((1,3), (2,3), (1, 1)))((5, 5)) //False: Not inside
+is_legal(5, List((1,3), (2,3), (1, 1)))((-1, 1)) //False: Not inside
+is_legal(5, List((1,3), (2,3), (1, 1)))((1, 1)) //False: In path
 
 //(1b) Complete the function that calculates for a position 
 // all legal onward moves that are not already in the path. 
