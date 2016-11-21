@@ -48,5 +48,5 @@ def first_tour(dim: Int, path: Path): Option[Path] = {
     first(legal_moves(dim, path, path(0)), x => first_tour(dim, x::path))
 }
 
-first_tour(6, List((0, 0)))g
+first_tour(6, List((0, 0)))
  
