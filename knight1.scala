@@ -78,7 +78,7 @@ def enum_tours(dim: Int, path: Path): List[Path] = {
 }
 
 
-println(enum_tours(5, List((0, 0))))
+enum_tours(5, List((0, 0)))
 
 
 

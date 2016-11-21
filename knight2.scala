@@ -11,7 +11,10 @@ type Path = List[Pos]    // a path...a list of positions
 // element, say x, in the list xs where f is not None. 
 // In that case return f(x), otherwise none.
 
-def first(xs: List[Pos], f: Pos => Option[Path]): Option[Path] = ...
+def first(xs: List[Pos], f: Pos => Option[Path]): Option[Path] = xs match {
+  case Nil => None
+  case x::xs => if (f(x) != None) f(x) else first(xs, f)
+}
 
 //(2b) Implement a function that uses the first-function for
 // trying out onward moves, and searches recursively for an 
