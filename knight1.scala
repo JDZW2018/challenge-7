@@ -66,7 +66,7 @@ def count_tours(dim: Int, path: Path): Int = {
     (for (move <- legalMoves) yield count_tours(dim, move::path)).sum
 }
 
-count_tours(5, List((0, 0)))
+count_tours(5, List((0,0)))
 
 def enum_tours(dim: Int, path: Path): List[Path] = {
   val startingPos = path(0)
@@ -78,7 +78,7 @@ def enum_tours(dim: Int, path: Path): List[Path] = {
 }
 
 
-enum_tours(5, List((0, 0)))
+enum_tours(5, List((0, 0))
 
 
 
