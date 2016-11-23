@@ -54,7 +54,7 @@ assert(legal_moves(8, List((6,6)), (7,7)) == List((6,5), (5,6)))
 // and the second collects all open tours in a list of paths.
 
 def is_closed(dim: Int, path: Path): Boolean =
-  legal_moves(dim, path, path(0)).find(x => x == path.last).isDefined
+  legal_moves(dim, List(path.head), path.head).contains(path.last)
 
 
 def count_tours(dim: Int, path: Path): Int = {
@@ -72,13 +72,13 @@ def enum_tours(dim: Int, path: Path): List[Path] = {
   val startingPos = path(0)
   val legalMoves = legal_moves(dim, path, startingPos)
   if  ((path.size == dim*dim) && (!is_closed(dim, path))) List(path)
-  else if  ((path.size == dim*dim) && (is_closed(dim, path))) Nil
+  else if  (path.size == dim*dim && is_closed(dim, path)) Nil
   else
     (for (move <- legalMoves) yield enum_tours(dim, move::path)).flatten
 }
 
 
-enum_tours(5, List((0, 0))
+enum_tours(5, List((0, 0)))
 
 
 
