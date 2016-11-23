@@ -58,10 +58,10 @@ def is_closed(dim: Int, path: Path): Boolean =
 
 
 def count_tours(dim: Int, path: Path): Int = {
-  val startingPos = path(0)
+  val startingPos = path.head
   val legalMoves = legal_moves(dim, path, startingPos)
   if  ((path.size == dim*dim) && (!is_closed(dim, path))) 1
-  else if  ((path.size == dim*dim) && (is_closed(dim, path))) 0
+  else if  (path.size == dim*dim && is_closed(dim, path)) 0
   else
     (for (move <- legalMoves) yield count_tours(dim, move::path)).sum
 }
@@ -69,7 +69,7 @@ def count_tours(dim: Int, path: Path): Int = {
 count_tours(5, List((0,0)))
 
 def enum_tours(dim: Int, path: Path): List[Path] = {
-  val startingPos = path(0)
+  val startingPos = path.head
   val legalMoves = legal_moves(dim, path, startingPos)
   if  ((path.size == dim*dim) && (!is_closed(dim, path))) List(path)
   else if  (path.size == dim*dim && is_closed(dim, path)) Nil
