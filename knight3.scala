@@ -59,10 +59,11 @@ def is_closed(dim: Int, path: Path): Boolean =
 def first_closed_tour_heuristic(dim: Int, path: Path): Option[Path] = {
   if (path.length == dim * dim && is_closed(dim, path)) Some(path)
   else
-    first(ordered_moves(dim, path, path(0)), x => first_closed_tour_heuristic(dim, x :: path))
+    first(ordered_moves(dim, path, path.head), x => first_closed_tour_heuristic(dim, x :: path))
 }
 
-println(first_closed_tour_heuristic(6, List((3, 3))))
+first_closed_tour_heuristic(5, List((0, 0)))
+first_closed_tour_heuristic(6, List((3, 3)))
 
 //(3c) Same as (3b) but searches for *open* tours.
 
@@ -72,5 +73,5 @@ def first_tour_heuristic(dim: Int, path: Path): Option[Path] = {
     first(ordered_moves(dim, path, path.head), x => first_tour_heuristic(dim, x :: path))
 }
 
-first_tour_heuristic(43, List((22, 22)))
+//first_tour_heuristic(43, List((22, 22)))
 
