@@ -34,7 +34,7 @@ def first(xs: List[Pos], f: Pos => Option[Path]): Option[Path] = xs match {
   case Nil => None
   case x::xs => {
     val rec = f(x)
-    if (rec != None) rec else first(xs, f)
+    if (rec.isDefined) rec else first(xs, f)
   }
 }
 
@@ -45,9 +45,9 @@ def first(xs: List[Pos], f: Pos => Option[Path]): Option[Path] = xs match {
 def first_tour(dim: Int, path: Path): Option[Path] = {
   if (path.length == dim * dim) Some(path)
   else
-    first(legal_moves(dim, path, path(0)), x => first_tour(dim, x::path))
+    first(legal_moves(dim, path, path.head), x => first_tour(dim, x::path))
 }
 
 //first_tour(6, List((0, 0)))
-println(first_tour(8, List((0,0))))
+first_tour(8, List((0,0)))
  
