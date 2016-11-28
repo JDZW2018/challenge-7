@@ -76,5 +76,5 @@ def first_tour_heuristic(dim: Int, path: Path): Option[Path] = {
   avoidStackOverflow(dim, path, path::Nil)
 }
 
-println(first_tour_heuristic(50, List((25, 25))))
+first_tour_heuristic(50, List((25, 25)))
 
