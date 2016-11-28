@@ -37,9 +37,9 @@ def smaller_than(x1: Pos, x2: Pos, dim: Int, path: Path): Boolean =
 
 def first(xs: List[Pos], f: Pos => Option[Path]): Option[Path] = xs match {
   case Nil => None
-  case x :: xs => {
-    val rec = f(x)
-    if (rec.isDefined) rec else first(xs, f)
+  case head :: remains => {
+    val rec = f(head)
+    if (rec.isDefined) rec else first(remains, f)
   }
 }
 
@@ -63,15 +63,18 @@ def first_closed_tour_heuristic(dim: Int, path: Path): Option[Path] = {
 }
 
 first_closed_tour_heuristic(5, List((0, 0)))
-first_closed_tour_heuristic(6, List((3, 3)))
 
 //(3c) Same as (3b) but searches for *open* tours.
 
-def first_tour_heuristic(dim: Int, path: Path): Option[Path] = {
-  if (path.length == dim * dim) Some(path)
-  else
-    first(ordered_moves(dim, path, path.head), x => first_tour_heuristic(dim, x :: path))
+def avoidStackOverflow(dim: Int, path: Path, collector: List[Path]): Option[Path] = collector match {
+  case Nil => None
+  case head :: remains => if (head.size == dim * dim) Some(head)
+    else avoidStackOverflow(dim, path, ordered_moves(dim, head, head.head).map(_ :: head) ::: remains)
 }
 
-//first_tour_heuristic(43, List((22, 22)))
+def first_tour_heuristic(dim: Int, path: Path): Option[Path] = {
+  avoidStackOverflow(dim, path, path::Nil)
+}
+
+println(first_tour_heuristic(50, List((25, 25))))
 
