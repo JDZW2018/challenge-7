@@ -70,11 +70,11 @@ def avoidStackOverflow(dim: Int, path: Path, collector: List[Path]): Option[Path
   case Nil => None
   case head :: remains => if (head.size == dim * dim) Some(head)
     else avoidStackOverflow(dim, path, ordered_moves(dim, head, head.head).map(_ :: head) )
-}::: remains
+}
 
 def first_tour_heuristic(dim: Int, path: Path): Option[Path] = {
   avoidStackOverflow(dim, path, path::Nil)
 }
 
-first_tour_heuristic(50, List((25, 25)))
+println(first_tour_heuristic(50, List((25, 25))))
 
